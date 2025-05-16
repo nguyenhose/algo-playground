@@ -8,9 +8,9 @@ export default function AlgoLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <div className="flex h-screen">
-      <aside className="w-64 border-r overflow-y-auto p-4 bg-gray-50">
+      <aside className="w-64 border-r overflow-y-auto p-4 bg-gray-50 hidden md:block">
         <h2 className="text-xl font-bold mb-4">Thuật toán</h2>
-        <ul className="space-y-2">
+        <ul className="space-y-2 ">
           {questions.map((q) => (
             <li key={q.id}>
               <Link
