@@ -1,5 +1,5 @@
-
-export async function runCodeSanbox(code: string): Promise<any> {
+// eslint-disable-next-line
+export async function runCodeSanbox(code: string): Promise<Function> {
   return new Promise((resolve, reject) => {
     try {
       const AsyncFunction = Object.getPrototypeOf(async function() {}).constructor;

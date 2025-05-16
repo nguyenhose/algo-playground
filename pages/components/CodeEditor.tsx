@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { runCodeSanbox } from "../utils/promiseSandbox";
+import { runCodeSanbox } from "@/utils/promiseSandbox";
 import { Editor } from "@monaco-editor/react";
 interface CodeEditorProps {
   defaultCode: string;
@@ -13,8 +13,12 @@ export default function CodeEditor({ defaultCode }: CodeEditorProps) {
     try {
       const result = await runCodeSanbox(code);
       setOutput(String(result))
-    } catch (error: any) {
-      setOutput(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+          setOutput(error.message);
+      } else if (typeof error === "string") {
+        setOutput(error)
+      }
     }
   }
 
