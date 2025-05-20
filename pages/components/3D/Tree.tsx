@@ -5,6 +5,7 @@ import { GhibliShader } from "./GhibliShader";
 import { Vector3, Object3D } from 'three';
 import { useFrame } from '@react-three/fiber';
 export const Tree  = ((props) => {
+  console.log("props", props)
   const { nodes } = useGLTF('/trees.glb')
   const uniforms = useMemo(
     () => ({
@@ -25,21 +26,23 @@ export const Tree  = ((props) => {
     // t.current!.rotation.y += 0.01;
   })
   return (
-    <group  dispose={null} position={[0, 0, 0]} ref={t}>
+    <group  dispose={null} position={props.position} ref={t}>
       <mesh
         castShadow
         receiveShadow
          //@ts-expect-error nodes expose
         geometry={nodes.Foliage.geometry}
-        position={[0, 0, 0]}
+        position={[0, 4, 0]}
       >
-          {/* <shaderMaterial attach="material" {...GhibliShader}
-          uniforms={uniforms} /> */}
-          <meshStandardMaterial />
+        {/* <shaderMaterial attach="material" {...GhibliShader}
+          uniforms={uniforms} />  */}
+          {/* <meshStandardMaterial /> */}
+          <meshToonMaterial color={0xeeffff} />
       </mesh>
-      <mesh position={[0, -2, 0]}>
+      <mesh position={[0, 1, 0]}>
         <cylinderGeometry args={[.3, .5, 3, 10]}/>
         <meshToonMaterial color={0xac6722} />
+        {/* <meshStandardMaterial /> */}
       </mesh>    
     </group>
   )
