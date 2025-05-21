@@ -1,13 +1,16 @@
 import { useEffect, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { getParticleSystem } from './particle';
-import { log } from 'console';
+import { PointLight } from 'three';
 
-function FlickeringFireLight(prop) {
-  const lightRef = useRef();
+interface FireComponent {
+  update: (rate: number) => void;
+}
+function FlickeringFireLight() {
+  const lightRef = useRef(new PointLight());
   const time = useRef(0);
   const _fire = useRef(0);
-  let fireComponent = null;
+  let fireComponent: FireComponent | null = null;
 const { camera, scene } = useThree();
   useEffect(() => {
       fireComponent = getParticleSystem({
@@ -28,7 +31,7 @@ const { camera, scene } = useThree();
       Math.sin(time.current * 13.7) * .1 + // mid
       Math.sin(time.current * 27.5) * .5; // fast jitter
 
-    if (lightRef.current) {
+    if (lightRef.current && lightRef.current.intensity) {
       lightRef.current.intensity = baseIntensity + flicker;
     }
     if (fireComponent) {

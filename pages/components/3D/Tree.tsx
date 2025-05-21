@@ -1,11 +1,14 @@
 
 import React, {  useMemo, useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
-import { GhibliShader } from "./GhibliShader";
-import { Vector3, Object3D } from 'three';
+import { Vector3, Object3D, Color } from 'three';
 import { useFrame } from '@react-three/fiber';
-export const Tree  = ((props) => {
-  console.log("props", props)
+import { GhibliShader } from './GhibliShader'
+interface TreeProps {
+  colors: [Color, Color, Color, Color],
+  position: [number, number, number]
+}
+export const Tree  = ((props: TreeProps) => {
   const { nodes } = useGLTF('/trees.glb')
   const uniforms = useMemo(
     () => ({
@@ -34,10 +37,10 @@ export const Tree  = ((props) => {
         geometry={nodes.Foliage.geometry}
         position={[0, 4, 0]}
       >
-        {/* <shaderMaterial attach="material" {...GhibliShader}
-          uniforms={uniforms} />  */}
+        <shaderMaterial attach="material" {...GhibliShader}
+          uniforms={uniforms} /> 
           {/* <meshStandardMaterial /> */}
-          <meshToonMaterial color={0xeeffff} />
+          {/* <meshToonMaterial color={0xeeffff} /> */}
       </mesh>
       <mesh position={[0, 1, 0]}>
         <cylinderGeometry args={[.3, .5, 3, 10]}/>
