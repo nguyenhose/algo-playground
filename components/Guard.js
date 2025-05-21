@@ -5,7 +5,6 @@ export default function Guard(props) {
   const group = useRef()
   const { nodes, materials, animations } = useGLTF('/Sitting Idle (1).glb')
   const { actions } = useAnimations(animations, group)
-  console.log(actions);
   useEffect(() => {
     actions["Armature|mixamo.com|Layer0"].play()
   })

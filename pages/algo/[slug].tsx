@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { questions } from "@/data/questions";
-import CodeEditor from "../components/CodeEditor";
+import CodeEditor from "../../components/CodeEditor";
 import AlgoLayout from "@/layouts/AlgoLayout";
 
 export default function AlgoDetailPage() {

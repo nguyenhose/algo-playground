@@ -1,11 +1,11 @@
 import { Canvas } from '@react-three/fiber';
-import Plane from '../components/3D/Plane'
-import { Tree } from '../components/3D/Tree'
+import Plane from '../../components/Plane'
+import { Tree } from '../../components/Tree'
 import { OrbitControls } from '@react-three/drei';
 import { Color } from 'three';
 import {  useEffect, useRef } from 'react';
-import FlickeringFireLight from '../components/3D/PointLight';
-import Guard from '../components/3D/Guard';
+import FlickeringFireLight from '../../components/PointLight';
+import Guard from '../../components/Guard';
 export default function Profile() {
   const _canvas = useRef(null)
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function Profile() {
         />
         <Plane />
         <Tree
-          position={[-5, 0, 4]}
+          position={[-2.5, 0, 3.5]}
           colors={[
             new Color("#4a8d7e").convertLinearToSRGB(),
             new Color("#377f6a").convertLinearToSRGB(),
@@ -35,7 +35,7 @@ export default function Profile() {
             new Color("#143b36").convertLinearToSRGB(),
           ]} />
         <Tree
-          position={[-3, 0, -4]}
+          position={[-1, 0, -4]}
           colors={[
             new Color("#4a8d7e").convertLinearToSRGB(),
             new Color("#377f6a").convertLinearToSRGB(),
@@ -51,7 +51,7 @@ export default function Profile() {
             new Color("#143b36").convertLinearToSRGB(),
           ]} />
             <Tree
-          position={[-10, 0, -3]}
+          position={[-12, 0, -3]}
           colors={[
             new Color("#4a8d7e").convertLinearToSRGB(),
             new Color("#377f6a").convertLinearToSRGB(),
