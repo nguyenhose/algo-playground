@@ -1,21 +1,44 @@
 import { Canvas } from '@react-three/fiber';
+import { gsap } from "gsap"
 import Plane from '../../components/Plane'
 import { Tree } from '../../components/Tree'
 import { OrbitControls } from '@react-three/drei';
 import { Color } from 'three';
-import {  useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import FlickeringFireLight from '../../components/PointLight';
 import Guard from '../../components/Guard';
+import { CameraInitial } from '@/components/CameraInitial';
+import {SplitText } from "gsap/SplitText";
+gsap.registerPlugin(SplitText);
+
 export default function Profile() {
-  const _canvas = useRef(null)
-  useEffect(() => {
-    console.log("use effect") ;
-  })
+  const _canvas = useRef(null);
+  const welcomeText = "Well met, traveler!";
+  let splitText: SplitText;
+  const textRef = useRef<HTMLDivElement>(null);
   return (
     <div className="w-screen h-screen bg-black text-white">
+      <Canvas
+        shadows ref={_canvas}
+        camera={{
+          position: [0, 5, 100],
+          fov: 50,
+          near: 0.1,
+          far: 1000,
+        }}
+      >
+        <CameraInitial onStopAnimation={() => {
+          if (textRef.current) {
+            textRef.current.textContent = welcomeText;
+            splitText = new SplitText(textRef.current, { type: "chars" });
+            gsap.from(splitText.chars, {
+              y: 20,
+              autoAlpha: 0,
+              stagger: 0.05
+            })
+          }
 
-      <Canvas 
-      camera={{ fov: 75, near: 0.1, far: 1000, position: [15, 5, 0] }} shadows ref={_canvas}>
+        }} />
         <ambientLight intensity={.01} />
         <directionalLight
           color="orange"
@@ -50,7 +73,7 @@ export default function Profile() {
             new Color("#184f52").convertLinearToSRGB(),
             new Color("#143b36").convertLinearToSRGB(),
           ]} />
-            <Tree
+        <Tree
           position={[-12, 0, -3]}
           colors={[
             new Color("#4a8d7e").convertLinearToSRGB(),
@@ -63,8 +86,7 @@ export default function Profile() {
         />
         <Guard position={[-2, 0, 3]} />
       </Canvas>
-      <div className="font-mono absolute top-[70%] text-white text-center text-4xl  w-screen justify-center">
-        Well met, wanderer...
+      <div className="font-mono absolute top-[70%] text-white text-center text-4xl  w-screen justify-center" ref={textRef}>
       </div>
     </div>
   )
